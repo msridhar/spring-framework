@@ -492,7 +492,7 @@ class DefaultWebTestClient implements WebTestClient {
 
 		private <E> ListBodySpec<E> getListBodySpec(Flux<E> flux) {
 			List<E> body = flux.collectList().block(this.timeout);
-			EntityExchangeResult<List<E>> entityResult = initEntityExchangeResult(body);
+			EntityExchangeResult<List<@Nullable E>> entityResult = initEntityExchangeResult(body);
 			return new DefaultListBodySpec<>(entityResult);
 		}
 
@@ -623,7 +623,7 @@ class DefaultWebTestClient implements WebTestClient {
 	private static class DefaultListBodySpec<E> extends DefaultBodySpec<List<@Nullable E>, ListBodySpec<E>>
 			implements ListBodySpec<E> {
 
-		DefaultListBodySpec(EntityExchangeResult<List<E>> result) {
+		DefaultListBodySpec(EntityExchangeResult<List<@Nullable E>> result) {
 			super(result);
 		}
 
